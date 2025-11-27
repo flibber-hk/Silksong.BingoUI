@@ -1,5 +1,4 @@
 ﻿using MonoDetour.HookGen;
-using Silksong.GameObjectDump;
 using Silksong.UnityHelper.Extensions;
 using System;
 
@@ -25,7 +24,7 @@ public static class CurrencyTracker
     private static void DoDump(CurrencyCounter self)
     {
         string name = self.currencyType.ToString();
-        self.InvokeAfterFrames(() => self.gameObject.Dump(dumpOptions: new() { DumpFullComponent = c => c is not PlayMakerFSM}), 10);
+        // self.InvokeAfterFrames(() => self.gameObject.Dump(dumpOptions: new() { DumpFullComponent = c => c is not PlayMakerFSM}), 10);
     }
 
     private static void RecordSpentCurrency(ref int amount, ref CurrencyType type)
