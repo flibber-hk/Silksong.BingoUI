@@ -39,6 +39,8 @@ public class QuestCounter(float x, float y, string spriteName, string questTypeK
             .GetAllFullQuests()
             .Where(this.Matches)
             .Where(fq => fq.Completion.WasEverCompleted)
+            .Select(fq => fq.DisplayName)
+            .Distinct()
             .Count()
             .ToString();
     }
