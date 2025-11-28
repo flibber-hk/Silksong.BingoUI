@@ -4,7 +4,7 @@ using System;
 namespace BingoUI.Counters;
 
 [MonoDetourTargets(typeof(ToolItem))]
-internal class ToolTypeCounter(ToolItemManager.OwnToolsCheckFlags flags, float x, float y, string spriteName) : AbstractCounter(x, y, spriteName)
+internal class ToolTypeCounter(float x, float y, string spriteName, ToolItemManager.OwnToolsCheckFlags flags) : AbstractCounter(x, y, spriteName)
 {
     public override string GetText()
     {

@@ -19,10 +19,10 @@ public class CounterManager
             new FleaCounter(14f / 15f, 0.01f, "flea"),
             new MapCounter(13f / 15f, 0.01f, "maps"),
             new LocketCounter(12f / 15f, 0.01f, "lockets"),
-            new ToolTypeCounter(ToolFlags.Red | ToolFlags.Yellow | ToolFlags.Blue, 11f / 15f, 0.01f, "alltools"),
-            new ToolTypeCounter(ToolFlags.Red, 10f / 15f, 0.01f, "redtools"),
-            new ToolTypeCounter(ToolFlags.Yellow, 9f / 15f, 0.01f, "yellowtools"),
-            new ToolTypeCounter(ToolFlags.Blue, 8f / 15f, 0.01f, "bluetools"),
+            new ToolTypeCounter(11f / 15f, 0.01f, "alltools", ToolFlags.Red | ToolFlags.Yellow | ToolFlags.Blue),
+            new ToolTypeCounter(10f / 15f, 0.01f, "redtools", ToolFlags.Red),
+            new ToolTypeCounter(9f / 15f, 0.01f, "yellowtools", ToolFlags.Yellow),
+            new ToolTypeCounter(8f / 15f, 0.01f, "bluetools", ToolFlags.Blue),
         ];
         CounterLookup = Counters.ToDictionary(v => v.SpriteName, v => v);
 
