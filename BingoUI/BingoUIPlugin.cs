@@ -21,8 +21,6 @@ public partial class BingoUIPlugin : BaseUnityPlugin
     {
         Instance = this;
 
-        // Can't add this for now because getting the text looking nice is nontrivial...
-        // Also means I don't have to deal with saving data yet :zote:
         CurrencyTracker.Hook();
 
         CounterManager = new();

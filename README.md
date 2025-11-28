@@ -27,6 +27,10 @@ from reusable sources such as rosary machines and shops.
 This mod is currently a work in progress. Icons can and should be created from the
 template in the assets folder.
 
+Anything that requires save data does not behave properly at the moment. It will
+be reset when you close the game, but will *not* be reset when entering a different
+save file.
+
 Things like config options, more counters (obviously), and ItemChanger integration,
 are planned.
 
