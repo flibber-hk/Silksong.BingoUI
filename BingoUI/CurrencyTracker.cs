@@ -1,4 +1,7 @@
-﻿using MonoDetour.HookGen;
+﻿using MonoDetour;
+using MonoDetour.HookGen;
+using System;
+using TeamCherry.Localization;
 
 namespace BingoUI;
 
@@ -7,16 +10,18 @@ namespace BingoUI;
 [MonoDetourTargets(typeof(CurrencyCounter))]
 public static class CurrencyTracker
 {
+    private static readonly MonoDetourManager currencyMgr = new("BingoUI.Currency");
+
     internal static void Hook()
     {
-        Md.CurrencyCounterBase.LateUpdate.Postfix(ModifyCurrencyText);
-        Md.CurrencyCounter.Take.Postfix(RecordSpentCurrency);
-        Md.CurrencyCounter.Awake.Postfix(SetCurrencyTextSize);
+        Md.CurrencyCounterBase.LateUpdate.Postfix(ModifyCurrencyText, manager: currencyMgr);
+        Md.CurrencyCounter.Take.Postfix(RecordSpentCurrency, manager: currencyMgr);
+        Md.CurrencyCounter.Awake.Postfix(SetCurrencyTextSize, manager: currencyMgr);
     }
 
     private static void SetCurrencyTextSize(CurrencyCounter self)
     {
-        if (self.currencyType != CurrencyType.Money) return;  // Could count shards...
+        if (self.currencyType != CurrencyType.Money) return;  // Could count shards too...
         if (self.geoTextMesh.tmpText is not TMProOld.TMP_Text text) return;
         text.fontSize *= 0.6f;
         self.initialAddTextX += 0.7f;
@@ -39,6 +44,21 @@ public static class CurrencyTracker
     {
         if (self is not CurrencyCounter ctr) return;
         if (ctr.currencyType != CurrencyType.Money) return;
-        ctr.geoTextMesh.Text = $"{self.counterCurrent}\n({GetCurrencySpent(ctr.CounterType)} spent)";
+
+        string spentGeoString;
+        try
+        {
+            spentGeoString = string.Format(
+                Language.Get("SPENT_GEO_FMT", $"Mods.{BingoUIPlugin.Id}"),
+                GetCurrencySpent(ctr.CounterType)
+            );
+        }
+        catch (Exception)
+        {
+            // If a localizer didn't put {0} in the string I don't want to blow up the mod
+            spentGeoString = $"{GetCurrencySpent(ctr.CounterType)} spent";
+        }
+        
+        ctr.geoTextMesh.Text = $"{self.counterCurrent}\n({spentGeoString})";
     }
 }
