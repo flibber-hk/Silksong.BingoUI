@@ -9,4 +9,6 @@ internal static class SaveDataProxy
         [CurrencyType.Money] = 0,
         [CurrencyType.Shard] = 0,
     };
+    
+    public static Dictionary<string, int> PickedShinies { get; } = [];
 }

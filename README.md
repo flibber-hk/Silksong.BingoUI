@@ -24,9 +24,6 @@ are planned.
 
 ## Requested counters
 
-* Rosary strings picked up (shiny)
-* Rosary necklaces picked up (shiny)
-* Beast shards picked up (shiny)
 * Craftmetal, relics, cogheart pieces
 * Spent rosary tracker (I tried to do this one first but it turns out to be harder than I was expecting)
 * Shakra in different areas
