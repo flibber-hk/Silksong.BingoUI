@@ -28,5 +28,5 @@ are planned.
 * Rosary necklaces picked up (shiny)
 * Beast shards picked up (shiny)
 * Craftmetal, relics, cogheart pieces
-* Wishes by type, wishes overall (I guess type taken from the wiki page?)
 * Spent rosary tracker (I tried to do this one first but it turns out to be harder than I was expecting)
+* Shakra in different areas
