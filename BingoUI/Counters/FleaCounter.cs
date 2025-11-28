@@ -7,10 +7,8 @@ using UnityEngine.SceneManagement;
 
 namespace BingoUI.Counters;
 
-public class FleaCounter : AbstractCounter
+public class FleaCounter(float x, float y, string spriteName) : AbstractCounter(x, y, spriteName)
 {
-    public FleaCounter(float x, float y, string spriteName) : base(x, y, spriteName) { }
-
     private static readonly Dictionary<string, MapZone> FleaBools = new()
     {
         [nameof(PlayerData.SavedFlea_Ant_03)] = MapZone.HUNTERS_NEST,
@@ -90,7 +88,7 @@ public class FleaCounter : AbstractCounter
     {
         if (current && FleaBools.ContainsKey(fieldName))
         {
-            UpdateText();
+            UpdateTextNextFrame();
         }
 
         return current;

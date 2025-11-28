@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Silksong.UnityHelper.Extensions;
+using System;
 
 namespace BingoUI;
 
-public abstract partial class AbstractCounter
+public abstract partial class AbstractCounter(float x, float y, string spriteName)
 {
     internal static event Action<string, ShowRule>? OnUpdateText;
 
-    public float x { get; set; }
-    public float y { get; set; }
+    public float x { get; set; } = x;
+    public float y { get; set; } = y;
 
     /// <summary>
     /// The name of the sprite, which also serves as the key for this counter
     /// and so should be unique.
     /// </summary>
-    public string SpriteName { get; set; }
+    public string SpriteName { get; set; } = spriteName;
 
     /// <summary>
     /// Function used to determine the text of the counter.
@@ -35,10 +36,8 @@ public abstract partial class AbstractCounter
         OnUpdateText?.Invoke(SpriteName, showRule);
     }
 
-    public AbstractCounter(float x, float y, string spriteName)
+    protected void UpdateTextNextFrame(ShowRule showRule = ShowRule.Default)
     {
-        this.SpriteName = spriteName;
-        this.x = x;
-        this.y = y;
+        BingoUIPlugin.Instance.InvokeNextFrame(() => UpdateText(showRule));
     }
 }
