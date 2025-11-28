@@ -1,5 +1,6 @@
 ﻿using MonoDetour.HookGen;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BingoUI.Counters;
@@ -11,66 +12,36 @@ public class LocketCounter(float x, float y, string spriteName) : AbstractCounte
 
     public override string GetText()
     {
-        int ownedLockets = PlayerData.instance.Collectables.GetData(ItemName).Amount;
-        int spentLockets = 0;
-
-        int hunterMax = 0;
-        int hunterUnlocked = 0;
-
-        foreach ((string key, ToolCrestsData.Data crestData) in PlayerData.instance.ToolEquips.Enumerate())
+        int unlockedSlots = 0;
+        foreach (ToolCrest crest in ToolItemManager.GetAllCrests())
         {
-            // For regular crests, all slots start unlocked except locked ones
-            int locked = crestData.Slots.Where(x => !x.IsUnlocked).Count();
-            int unlocked = crestData.Slots.Where(x => x.IsUnlocked).Count();
-
-            switch (key)
+            if (
+              crest.IsHidden || !crest.IsUnlocked
+              || crest.IsUpgradedVersionUnlocked
+            )
             {
-                case "Reaper":
-                    spentLockets += 3 - locked;
-                    continue;
-                case "Warrior":
-                    spentLockets += 2 - locked;
-                    continue;
-                case "Wanderer":
-                    spentLockets += 3 - locked;
-                    continue;
-                case "Toolmaster":
-                    spentLockets += 4 - locked;
-                    continue;
-                case "Witch":
-                    spentLockets += 3 - locked;
-                    continue;
-                case "Spell":
-                    spentLockets += 2 - locked;
-                    continue;
-                case "Cursed":
-                    continue;
+                continue;
             }
 
-            // For hunter crests, all slots start locked
-            if (key.StartsWith("Hunter"))
-            {
-                int idx;
-                if (key.Contains('v'))
-                {
-                    idx = Convert.ToInt32(key.Split("_v").Last());
-                }
-                else
-                {
-                    idx = 1;
-                }
+            ToolCrest.SlotInfo[] initialSlots = crest.Slots;
+            List<ToolCrestsData.SlotData> savedSlots = crest.SaveData.Slots;
 
-                if (idx > hunterMax)
+            for (int i = 0; i < initialSlots.Length; i++)
+            {
+                if (
+                  initialSlots[i].IsLocked
+                  && (savedSlots != null && i < savedSlots.Count && savedSlots[i].IsUnlocked)
+                )
                 {
-                    hunterMax = idx;
-                    hunterUnlocked = unlocked;
+                    unlockedSlots++;
                 }
             }
         }
 
-        spentLockets += hunterUnlocked;
+        int ownedLockets = PlayerData.instance.Collectables.GetData(ItemName).Amount;
+        int totalLockets = ownedLockets + unlockedSlots;
 
-        return (ownedLockets + spentLockets).ToString();
+        return $"{ownedLockets}({totalLockets})";
     }
 
     public override void Hook()
