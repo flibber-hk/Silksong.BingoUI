@@ -23,6 +23,12 @@ public class CounterManager
             new ToolTypeCounter(10f / 15f, 0.01f, "redtools", ToolFlags.Red),
             new ToolTypeCounter(9f / 15f, 0.01f, "yellowtools", ToolFlags.Yellow),
             new ToolTypeCounter(8f / 15f, 0.01f, "bluetools", ToolFlags.Blue),
+            // Only count non-main quests
+            new QuestCounter(7f / 15f, 0.01f, "allquest", "TYPE_"),
+            new QuestCounter(6f / 15f, 0.01f, "donationquest", "TYPE_DONATE_"),
+            new QuestCounter(5f / 15f, 0.01f, "huntquest", "TYPE_HUNT_"),
+            new QuestCounter(4f / 15f, 0.01f, "gatherquest", "TYPE_GATHER_"),
+            new QuestCounter(3f / 15f, 0.01f, "wayfarerquest", "TYPE_WAYFARER_"),
         ];
         CounterLookup = Counters.ToDictionary(v => v.SpriteName, v => v);
 

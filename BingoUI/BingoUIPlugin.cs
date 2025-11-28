@@ -1,7 +1,5 @@
 using BepInEx;
 using MonoDetour.HookGen;
-using MonoDetour.Reflection.Unspeakable;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;

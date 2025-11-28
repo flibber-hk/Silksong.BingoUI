@@ -23,6 +23,10 @@ public abstract partial class AbstractCounter(float x, float y, string spriteNam
 
     /// <summary>
     /// Function used to setup callbacks.
+    /// 
+    /// This should always be used to decide when to show the counter, typically by calling
+    /// <see cref="UpdateTextNextFrame"/>, but may also be used to setup callbacks
+    /// for tracking saved data.
     /// </summary>
     public abstract void Hook();
 
