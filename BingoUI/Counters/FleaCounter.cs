@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace BingoUI.Counters;
 
-public class FleaCounter(float x, float y, string spriteName) : AbstractCounter(x, y, spriteName)
+public class FleaCounter(string spriteName) : AbstractCounter(spriteName)
 {
     private static readonly Dictionary<string, MapZone> FleaBools = new()
     {
@@ -73,7 +73,7 @@ public class FleaCounter(float x, float y, string spriteName) : AbstractCounter(
         return $"{fleasCollected}({areaFleas})";
     }
 
-    public override void Hook()
+    public override void SetupHooks()
     {
         PlayerDataVariableEvents<bool>.OnSetVariable += OnSetBool;
         SceneManager.activeSceneChanged += OnSceneChange;

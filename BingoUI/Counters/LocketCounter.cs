@@ -6,7 +6,7 @@ using System.Linq;
 namespace BingoUI.Counters;
 
 [MonoDetourTargets(typeof(CollectableItemManager))]
-public class LocketCounter(float x, float y, string spriteName) : AbstractCounter(x, y, spriteName)
+public class LocketCounter(string spriteName) : AbstractCounter(spriteName)
 {
     private const string ItemName = "Crest Socket Unlocker";
 
@@ -44,7 +44,7 @@ public class LocketCounter(float x, float y, string spriteName) : AbstractCounte
         return $"{ownedLockets}({totalLockets})";
     }
 
-    public override void Hook()
+    public override void SetupHooks()
     {
         Md.CollectableItemManager.AffectItemData.Postfix(RecordGainedLocket);
     }

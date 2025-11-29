@@ -13,7 +13,7 @@ namespace BingoUI.Counters;
 /// </summary>
 [MonoDetourTargets(typeof(CollectableItemManager))]
 [MonoDetourTargets(typeof(CollectableItemPickup))]
-internal class PickedConsumableCounter(float x, float y, string spriteName, HashSet<string> ItemNames) : AbstractCounter(x, y, spriteName)
+internal class PickedConsumableCounter(string spriteName, HashSet<string> ItemNames) : AbstractCounter(spriteName)
 {
 
     public override string GetText()
@@ -23,7 +23,7 @@ internal class PickedConsumableCounter(float x, float y, string spriteName, Hash
         return $"{owned}({shinyPicked})";
     }
     
-    public override void Hook()
+    public override void SetupHooks()
     {
         Md.CollectableItemPickup.DoPickupAction.Postfix(RecordPickedShiny);
         Md.CollectableItemManager.InternalAddItem.Postfix(RecordChangedItemCount);

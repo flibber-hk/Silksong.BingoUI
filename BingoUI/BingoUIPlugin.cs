@@ -1,7 +1,6 @@
 using BepInEx;
 using MonoDetour.HookGen;
 using System.Collections;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace BingoUI;

@@ -7,9 +7,9 @@ using System.Text;
 namespace BingoUI.Counters;
 
 [MonoDetourTargets(typeof(FullQuestBase))]
-public class QuestCounter(float x, float y, string spriteName, string questTypeKeyPrefix) : AbstractCounter(x, y, spriteName)
+public class QuestCounter(string spriteName, string questTypeKeyPrefix) : AbstractCounter(spriteName)
 {
-    public override void Hook()
+    public override void SetupHooks()
     {
         Md.FullQuestBase.SilentlyComplete.Prefix(OnQuestComplete);
         Md.FullQuestBase.TryEndQuest.Prefix(OnQuestComplete);

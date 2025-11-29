@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using CUtil = CanvasUtil.CanvasUtil;
@@ -12,20 +11,47 @@ namespace BingoUI;
 
 internal class CanvasManager : IDisposable
 {
-    private GameObject _canvas = null!;
+    private class CounterData
+    {
+        public required CanvasGroup CanvasGroup { get; set; }
+        public required Text Text { get; set; }
+        public DateTime NextCanvasFade { get; set; } = DateTime.MinValue;
+    }
 
-    private Dictionary<string, (CanvasGroup canvasGroup, Text text)> _canvasPanels = new();
-    private Dictionary<string, DateTime> _nextCanvasFade = new();
+    private GameObject _canvas;
+
+    private Dictionary<string, CounterData> _canvasPanels;
 
     public CanvasManager()
     {
         _canvas = CUtil.CreateCanvas(RenderMode.ScreenSpaceCamera, new Vector2(1920, 1080));
         UObject.DontDestroyOnLoad(_canvas);
         AbstractCounter.OnUpdateText += OnUpdateText;
-    
-        foreach (AbstractCounter counter in BingoUIPlugin.Instance.CounterManager.Counters)
+
+        _canvasPanels = [];
+
+        using (IEnumerator<Vector2> positionEnumerator = GetDefaultPositions().GetEnumerator())
         {
-            SetupCanvasIcon(counter);
+            foreach (AbstractCounter counter in BingoUIPlugin.Instance.CounterManager.Counters.Values)
+            {
+                positionEnumerator.MoveNext();
+                Vector2 position = positionEnumerator.Current;
+                CounterData cd = SetupCanvasIcon(counter, position);
+                _canvasPanels[counter.SpriteName] = cd;
+            }
+        }
+    }
+
+    private static IEnumerable<Vector2> GetDefaultPositions()
+    {
+        float y = 0.01f;
+        while (y < 0.9f)
+        {
+            for (int x = 14; x >= 0; x--)
+            {
+                yield return new(x / 15f, y);
+            }
+            y += 0.11f;
         }
     }
 
@@ -35,9 +61,9 @@ internal class CanvasManager : IDisposable
         UObject.Destroy(_canvas);
     }
 
-    public void SetupCanvasIcon(AbstractCounter counter)
+    private CounterData SetupCanvasIcon(AbstractCounter counter, Vector2 position)
     {
-        Vector2 anchor = new(counter.x, counter.y);
+        Vector2 anchor = position;
         GameObject canvasSprite = CUtil.CreateImagePanel
         (
             _canvas,
@@ -54,7 +80,7 @@ internal class CanvasManager : IDisposable
         GameObject textPanel = CUtil.CreateTextPanel
         (
             canvasSprite,
-            "0",
+            string.Empty,
             23,
             TextAnchor.LowerCenter,
             new CanvasUtil.RectData(Vector2.zero, Vector2.zero, Vector2.zero, Vector2.one)
@@ -62,47 +88,47 @@ internal class CanvasManager : IDisposable
         Text text = textPanel.GetComponent<Text>();
         text.color = Color.black;
 
-        _canvasPanels[counter.SpriteName] = (canvasGroup, text);
+        return new() { CanvasGroup = canvasGroup, Text = text };
     }
 
     public void OnUpdateText(string key, ShowRule showRule)
     {
-        AbstractCounter counter = BingoUIPlugin.Instance.CounterManager.CounterLookup[key];
-        (CanvasGroup canvasGroup, Text text) = _canvasPanels[counter.SpriteName];
+        AbstractCounter counter = BingoUIPlugin.Instance.CounterManager.Counters[key];
+        CounterData data = _canvasPanels[counter.SpriteName];
 
         string newText = counter.GetText();
 
-        if (text.text == newText && showRule != ShowRule.ForceShow) return;
-        text.text = newText;
+        if (data.Text.text == newText && showRule != ShowRule.ForceShow) return;
+        data.Text.text = newText;
         if (showRule == ShowRule.DontShow) return;
 
-        if (DateTime.Now >= (_nextCanvasFade.TryGetValue(counter.SpriteName, out DateTime dt) ? dt : DateTime.MinValue))
+        if (DateTime.Now >= data.NextCanvasFade)
         {
-            BingoUIPlugin.Instance.StartCoroutine(FadeCanvas(canvasGroup));
-            _nextCanvasFade[counter.SpriteName] = DateTime.Now.AddSeconds(0.5f);
+            BingoUIPlugin.Instance.StartCoroutine(FadeCanvas(data.CanvasGroup));
+            data.NextCanvasFade = DateTime.Now.AddSeconds(0.5f);
         }
 
     }
 
     public void FadeInAll()
     {
-        foreach ((string key, (CanvasGroup cg, Text text)) in _canvasPanels)
+        foreach ((string key, CounterData cd) in _canvasPanels)
         {
-            text.text = BingoUIPlugin.Instance.CounterManager.CounterLookup[key].GetText();
+            cd.Text.text = BingoUIPlugin.Instance.CounterManager.Counters[key].GetText();
 
-            FadeIn(cg);
+            FadeIn(cd.CanvasGroup);
         }
     }
 
     public void FadeOutAll()
     {
-        foreach ((CanvasGroup cg, Text text) in _canvasPanels.Values)
+        foreach (CounterData cd in _canvasPanels.Values)
         {
-            FadeOut(cg);
+            FadeOut(cd.CanvasGroup);
         }
     }
 
-    private IEnumerator FadeCanvas(CanvasGroup cg)
+    private static IEnumerator FadeCanvas(CanvasGroup cg)
     {
         if (GlobalSettingsProxy.AlwaysDisplay || GlobalSettingsProxy.NeverDisplay) yield break;
 
@@ -111,12 +137,12 @@ internal class CanvasManager : IDisposable
         FadeOut(cg);
     }
 
-    public void FadeIn(CanvasGroup cg)
+    private static void FadeIn(CanvasGroup cg)
     {
         BingoUIPlugin.Instance.StartCoroutine(CUtil.FadeInCanvasGroup(cg));
     }
 
-    public void FadeOut(CanvasGroup cg)
+    private static void FadeOut(CanvasGroup cg)
     {
         BingoUIPlugin.Instance.StartCoroutine(CUtil.FadeOutCanvasGroup(cg));
     }

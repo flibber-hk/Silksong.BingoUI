@@ -2,14 +2,14 @@
 
 namespace BingoUI.Counters;
 
-internal class MapCounter(float x, float y, string spriteName) : AbstractCounter(x, y, spriteName)
+internal class MapCounter(string spriteName) : AbstractCounter(spriteName)
 {
     public override string GetText()
     {
         return PlayerData.instance.MapCount.ToString();
     }
 
-    public override void Hook()
+    public override void SetupHooks()
     {
         PlayerDataVariableEvents<bool>.OnSetVariable += OnSetMapBool;
     }

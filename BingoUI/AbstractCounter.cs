@@ -3,12 +3,9 @@ using System;
 
 namespace BingoUI;
 
-public abstract partial class AbstractCounter(float x, float y, string spriteName)
+public abstract partial class AbstractCounter(string spriteName)
 {
     internal static event Action<string, ShowRule>? OnUpdateText;
-
-    public float x { get; set; } = x;
-    public float y { get; set; } = y;
 
     /// <summary>
     /// The name of the sprite, which also serves as the key for this counter
@@ -28,7 +25,7 @@ public abstract partial class AbstractCounter(float x, float y, string spriteNam
     /// <see cref="UpdateTextNextFrame"/>, but may also be used to setup callbacks
     /// for tracking saved data.
     /// </summary>
-    public abstract void Hook();
+    public abstract void SetupHooks();
 
     /// <summary>
     /// Set the text displayed by the counter. By default, show the counter either if it's already on screen or
