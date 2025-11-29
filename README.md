@@ -38,5 +38,6 @@ are planned.
 
 ## Requested counters
 
-* Craftmetal, relics, cogheart pieces
-* Shakra in different areas
+* Craftmetal, relics
+
+Note - I think there aren't enough cogheart pieces to merit a separate counter for them.
