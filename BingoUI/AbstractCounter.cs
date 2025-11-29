@@ -11,7 +11,7 @@ public abstract partial class AbstractCounter(string spriteName)
     /// The name of the sprite, which also serves as the key for this counter
     /// and so should be unique.
     /// </summary>
-    public string SpriteName { get; set; } = spriteName;
+    public string SpriteName { get; private set; } = spriteName;
 
     /// <summary>
     /// Function used to determine the text of the counter.
@@ -37,6 +37,12 @@ public abstract partial class AbstractCounter(string spriteName)
         OnUpdateText?.Invoke(SpriteName, showRule);
     }
 
+    /// <summary>
+    /// Wait a frame, and then call <see cref="UpdateText"/>.
+    /// 
+    /// This is intended to be used in callbacks that run before save data modifications happen.
+    /// </summary>
+    /// <inheritdoc cref="UpdateText"/>
     protected void UpdateTextNextFrame(ShowRule showRule = ShowRule.Default)
     {
         BingoUIPlugin.Instance.InvokeNextFrame(() => UpdateText(showRule));

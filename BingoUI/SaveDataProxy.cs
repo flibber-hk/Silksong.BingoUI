@@ -11,4 +11,6 @@ internal static class SaveDataProxy
     };
     
     public static Dictionary<string, int> PickedShinies { get; } = [];
+
+    public static HashSet<string> ShakraScenes { get; } = new();
 }

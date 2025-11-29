@@ -8,7 +8,9 @@ on the screen. This is primarily intended as an tool for Bingo races.
 The latest version of the mod can be downloaded from the actions tab (requires
 a github account). You will also need dependencies downloaded from Thunderstore,
 the list of dependencies is available in this repo at thunderstore/thunderstore.toml
-(version numbers don't matter).
+(version numbers don't matter). For convenience, these can be downloaded by downloading
+the [dependency pack](https://thunderstore.io/c/hollow-knight-silksong/p/flibber/FlibberDependencyPack/)
+- this still ought to be done using a mod installer though.
 
 Make sure that the en.json file is placed in a languages dir next to the mod dll.
 

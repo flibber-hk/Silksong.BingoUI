@@ -31,6 +31,8 @@ public class CounterManager
             new PickedConsumableCounter("beastshards", ["Great Shard"]),
             new PickedConsumableCounter("strings", ["Rosary_Set_Small", "Rosary_Set_Frayed"]),
             new PickedConsumableCounter("necklaces", ["Rosary_Set_Huge_White", "Rosary_Set_Medium", "Rosary_Set_Large"]),
+
+            new ShakraLocationsCounter("mapper"),
         ];
     }
 
