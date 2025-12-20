@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BingoUI.Data;
@@ -20,6 +21,7 @@ public class SaveData
         }
         internal set
         {
+            BepInEx.Logging.Logger.CreateLogSource("abc").LogInfo(JsonConvert.SerializeObject(value));
             _instance = value;
         }
     }

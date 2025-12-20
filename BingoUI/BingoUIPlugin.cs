@@ -1,6 +1,7 @@
 using BepInEx;
 using BingoUI.Data;
 using MonoDetour.HookGen;
+using Newtonsoft.Json;
 using Silksong.DataManager;
 using Silksong.GameObjectDump.Logging;
 using System.Collections;
@@ -19,7 +20,11 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
     SaveData? ISaveDataMod<SaveData>.SaveData
     {
         get => SaveData.Instance;
-        set => SaveData.Instance = value;
+        set
+        {
+            BepInEx.Logging.Logger.CreateLogSource("def").LogInfo(JsonConvert.SerializeObject(value));
+            SaveData.Instance = value;
+        }
     }
 
     internal CounterManager CounterManager;
@@ -28,6 +33,8 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
     private void Awake()
     {
         Instance = this;
+
+        ConfigSettings.Setup(Config);
 
         CurrencyTracker.Hook();
 
@@ -59,7 +66,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
 
     private void AfterUnpause(UIManager self)
     {
-        if (GlobalDataProxy.AlwaysDisplay) return;
+        if (ConfigSettings.AlwaysDisplayCounters) return;
 
         if (_canvasManager != null)
         {
@@ -75,7 +82,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
         {
             yield return orig;
 
-            if (GlobalDataProxy.AlwaysDisplay || GlobalDataProxy.NeverDisplay)
+            if (ConfigSettings.AlwaysDisplayCounters || ConfigSettings.NeverDisplayCounters)
             {
                 yield break;
             }
@@ -96,7 +103,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
     {
         if (_canvasManager is null) return;
 
-        if (!GlobalDataProxy.AlwaysDisplay)
+        if (!ConfigSettings.AlwaysDisplayCounters)
         {
             _canvasManager.FadeOutAll();
         }
