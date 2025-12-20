@@ -1,4 +1,5 @@
-﻿using MonoDetour.HookGen;
+﻿using BingoUI.Data;
+using MonoDetour.HookGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ internal class PickedConsumableCounter(string spriteName, HashSet<string> ItemNa
 
     public override string GetText()
     {
-        int shinyPicked = SaveDataProxy.PickedShinies.GetTotalAmount(ItemNames);
+        int shinyPicked = SaveData.Instance.PickedShinies.GetTotalAmount(ItemNames);
         int owned = ItemNames.Select(x => PlayerData.instance.Collectables.GetData(x).Amount).Sum();
         return $"{owned}({shinyPicked})";
     }
@@ -37,7 +38,7 @@ internal class PickedConsumableCounter(string spriteName, HashSet<string> ItemNa
             return;
         }
 
-        SaveDataProxy.PickedShinies.Increment(self.Item.name);
+        SaveData.Instance.PickedShinies.Increment(self.Item.name);
     }
 
     private void RecordChangedItemCount(CollectableItemManager self, ref CollectableItem item, ref int amount)

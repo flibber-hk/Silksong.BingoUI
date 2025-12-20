@@ -1,4 +1,5 @@
-﻿using MonoDetour;
+﻿using BingoUI.Data;
+using MonoDetour;
 using MonoDetour.HookGen;
 using System;
 using TeamCherry.Localization;
@@ -32,12 +33,12 @@ public static class CurrencyTracker
     {
         int current = GetCurrencySpent(type);
         current += amount;
-        SaveDataProxy.SpentCurrency[type] = current;
+        SaveData.Instance.SpentCurrency[type] = current;
     }
 
     private static int GetCurrencySpent(CurrencyType type)
     {
-        return SaveDataProxy.SpentCurrency.TryGetValue(type, out int spent) ? spent : 0;
+        return SaveData.Instance.SpentCurrency.TryGetValue(type, out int spent) ? spent : 0;
     }
 
     private static void ModifyCurrencyText(CurrencyCounterBase self)

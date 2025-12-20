@@ -1,4 +1,5 @@
-﻿using Silksong.UnityHelper.Util;
+﻿using BingoUI.Data;
+using Silksong.UnityHelper.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,7 +76,7 @@ internal class CanvasManager : IDisposable
         CanvasGroup canvasGroup = canvasSprite.AddComponent<CanvasGroup>();
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
-        if (!GlobalSettingsProxy.AlwaysDisplay) canvasGroup.gameObject.SetActive(false);
+        if (!GlobalDataProxy.AlwaysDisplay) canvasGroup.gameObject.SetActive(false);
 
         GameObject textPanel = CUtil.CreateTextPanel
         (
@@ -130,7 +131,7 @@ internal class CanvasManager : IDisposable
 
     private static IEnumerator FadeCanvas(CanvasGroup cg)
     {
-        if (GlobalSettingsProxy.AlwaysDisplay || GlobalSettingsProxy.NeverDisplay) yield break;
+        if (GlobalDataProxy.AlwaysDisplay || GlobalDataProxy.NeverDisplay) yield break;
 
         if (!cg.gameObject.activeSelf) FadeIn(cg);
         yield return new WaitForSeconds(4f);

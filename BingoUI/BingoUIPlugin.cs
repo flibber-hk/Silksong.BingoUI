@@ -1,5 +1,8 @@
 using BepInEx;
+using BingoUI.Data;
 using MonoDetour.HookGen;
+using Silksong.DataManager;
+using Silksong.GameObjectDump.Logging;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +10,17 @@ namespace BingoUI;
 
 // TODO - adjust the plugin guid as needed
 [BepInAutoPlugin(id: "io.github.flibber-hk.bingoui")]
+[BepInDependency("org.silksong-modding.datamanager")]
 [MonoDetourTargets(typeof(UIManager))]
 [MonoDetourTargets(typeof(HeroController))]
-public partial class BingoUIPlugin : BaseUnityPlugin
+public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
 {
     public static BingoUIPlugin Instance { get; private set; }
+    SaveData? ISaveDataMod<SaveData>.SaveData
+    {
+        get => SaveData.Instance;
+        set => SaveData.Instance = value;
+    }
 
     internal CounterManager CounterManager;
     private CanvasManager? _canvasManager;
@@ -29,6 +38,8 @@ public partial class BingoUIPlugin : BaseUnityPlugin
         Md.UIManager.UIClosePauseMenu.Postfix(AfterUnpause);
         Md.UIManager.ReturnToMainMenu.Postfix(TakedownCanvas);
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        CanvasUtil.DebugPanel.Create(() => $"Geo spent: {SaveData.Instance.SpentCurrency[CurrencyType.Money]}");
 
         Logger.LogInfo($"Plugin {Name} ({Id}) has loaded!");
     }
@@ -48,7 +59,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin
 
     private void AfterUnpause(UIManager self)
     {
-        if (GlobalSettingsProxy.AlwaysDisplay) return;
+        if (GlobalDataProxy.AlwaysDisplay) return;
 
         if (_canvasManager != null)
         {
@@ -64,7 +75,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin
         {
             yield return orig;
 
-            if (GlobalSettingsProxy.AlwaysDisplay || GlobalSettingsProxy.NeverDisplay)
+            if (GlobalDataProxy.AlwaysDisplay || GlobalDataProxy.NeverDisplay)
             {
                 yield break;
             }
@@ -85,7 +96,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin
     {
         if (_canvasManager is null) return;
 
-        if (!GlobalSettingsProxy.AlwaysDisplay)
+        if (!GlobalDataProxy.AlwaysDisplay)
         {
             _canvasManager.FadeOutAll();
         }
