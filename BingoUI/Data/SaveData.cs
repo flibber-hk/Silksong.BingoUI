@@ -21,7 +21,6 @@ public class SaveData
         }
         internal set
         {
-            BepInEx.Logging.Logger.CreateLogSource("abc").LogInfo(JsonConvert.SerializeObject(value));
             _instance = value;
         }
     }

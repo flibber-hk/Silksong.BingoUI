@@ -20,11 +20,7 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
     SaveData? ISaveDataMod<SaveData>.SaveData
     {
         get => SaveData.Instance;
-        set
-        {
-            BepInEx.Logging.Logger.CreateLogSource("def").LogInfo(JsonConvert.SerializeObject(value));
-            SaveData.Instance = value;
-        }
+        set => SaveData.Instance = value;
     }
 
     internal CounterManager CounterManager;
