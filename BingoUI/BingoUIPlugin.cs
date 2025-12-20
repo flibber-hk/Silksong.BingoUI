@@ -42,8 +42,6 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
         Md.UIManager.ReturnToMainMenu.Postfix(TakedownCanvas);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        CanvasUtil.DebugPanel.Create(() => $"Geo spent: {SaveData.Instance.SpentCurrency[CurrencyType.Money]}");
-
         Logger.LogInfo($"Plugin {Name} ({Id}) has loaded!");
     }
 
