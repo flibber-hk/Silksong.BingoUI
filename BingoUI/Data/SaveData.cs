@@ -25,13 +25,13 @@ public class SaveData
         }
     }
 
-    public Dictionary<CurrencyType, int> SpentCurrency { get; } = new()
+    public Dictionary<CurrencyType, int> SpentCurrency { get; set; } = new()
     {
         [CurrencyType.Money] = 0,
         [CurrencyType.Shard] = 0,
     };
 
-    public Dictionary<string, int> PickedShinies { get; } = [];
+    public Dictionary<string, int> PickedShinies { get; set; } = [];
 
-    public HashSet<string> ShakraScenes { get; } = [];
+    public HashSet<string> ShakraScenes { get; set; } = [];
 }
