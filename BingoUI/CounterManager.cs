@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using BingoUI.Counters;
 using ToolFlags = ToolItemManager.OwnToolsCheckFlags;
 
@@ -8,6 +6,49 @@ namespace BingoUI;
 
 public class CounterManager
 {
+    public static string GetDisplayName(string spriteKey)
+    {
+        return spriteKey switch
+        {
+            "flea" => "Fleas",
+            "maps" => "Maps",
+            "lockets" => "Lockets",
+
+            "alltools" => "All Tools",
+            "redtools" => "Red Tools",
+            "yellowtools" => "Yellow Tools",
+            "bluetools" => "Blue Tools",
+
+            "allquest" => "All Quests",
+            "deliveryquest" => "Delivery Quests",
+            "donationquest" => "Donation Quests",
+            "huntquest" => "Hunt Quests",
+            "gatherquest" => "Gather Quests",
+            "wayfarerquest" => "Wayfarer Quests",
+
+            "shardbundles" => "Shard Bundles",
+            "beastshards" => "Beast Shards",
+            "strings" => "Rosary Strings",
+            "necklaces" => "Rosary Necklaces",
+
+            "mapper" => "Shakra Scenes",
+
+            "silkeater" => "Silkeaters",
+            "bonescroll" => "Bone Scrolls",
+            "choralcommandment" => "Choral Commandments",
+            "craftmetal" => "Craftmetal",
+            "psalmcylinder" => "Psalm Cylinders",
+            "relics" => "Relics",
+            "runeharp" => "Rune Harps",
+            "weavereffigy" => "Weaver Effigies",
+            
+            "rosaries" => "Rosaries",
+
+
+            _ => spriteKey
+        };
+    }
+
     private static List<AbstractCounter> GenerateDefaultCounters()
     {
         return [
@@ -40,7 +81,6 @@ public class CounterManager
 
     public CounterManager()
     {
-
         Counters = [];
 
         foreach (AbstractCounter counter in GenerateDefaultCounters())

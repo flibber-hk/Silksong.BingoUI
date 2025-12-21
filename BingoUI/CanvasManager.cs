@@ -35,6 +35,8 @@ internal class CanvasManager : IDisposable
         {
             foreach (AbstractCounter counter in BingoUIPlugin.Instance.CounterManager.Counters.Values)
             {
+                if (!counter.IsCounterDisplayEnabled) continue;
+
                 positionEnumerator.MoveNext();
                 Vector2 position = positionEnumerator.Current;
                 CounterData cd = SetupCanvasIcon(counter, position);

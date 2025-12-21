@@ -1,8 +1,10 @@
 using BepInEx;
 using BingoUI.Data;
 using MonoDetour.HookGen;
-using Newtonsoft.Json;
 using Silksong.DataManager;
+using Silksong.ModMenu;
+using Silksong.ModMenu.Plugin;
+using Silksong.ModMenu.Screens;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +15,7 @@ namespace BingoUI;
 [BepInDependency("org.silksong-modding.datamanager")]
 [MonoDetourTargets(typeof(UIManager))]
 [MonoDetourTargets(typeof(HeroController))]
-public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
+public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>, IModMenuCustomMenu
 {
     public static BingoUIPlugin Instance { get; private set; }
     SaveData? ISaveDataMod<SaveData>.SaveData
@@ -29,11 +31,10 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
     {
         Instance = this;
 
-        ConfigSettings.Setup(Config);
+        CounterManager = new();
+        ConfigSettings.Setup(Config, CounterManager);
 
         CurrencyTracker.Hook();
-
-        CounterManager = new();
 
         Md.HeroController.Start.Postfix(SetupCanvas);
         Md.UIManager.GoToPauseMenu.Postfix(AfterPause);
@@ -41,7 +42,19 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
         Md.UIManager.ReturnToMainMenu.Postfix(TakedownCanvas);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        Config.SettingChanged += OnConfigSettingChanged;
+
         Logger.LogInfo($"Plugin {Name} ({Id}) has loaded!");
+    }
+
+    private void OnConfigSettingChanged(object sender, BepInEx.Configuration.SettingChangedEventArgs e)
+    {
+        if (e.ChangedSetting.Definition.Section.StartsWith("Counters") &&
+            (UIManager.instance.uiState == GlobalEnums.UIState.PAUSED || UIManager.instance.uiState == GlobalEnums.UIState.PLAYING)
+            )
+        {
+            SetupCanvas();
+        }
     }
 
     private void TakedownCanvas(UIManager self, ref IEnumerator returnValue)
@@ -87,9 +100,17 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
         }
     }
 
-    private void SetupCanvas(HeroController self)
+    private void SetupCanvas(HeroController self) => SetupCanvas();
+    
+    private void SetupCanvas()
     {
+        _canvasManager?.Dispose();
         _canvasManager = new();
+
+        if (!ConfigSettings.NeverDisplayCounters && UIManager.instance.uiState == GlobalEnums.UIState.PAUSED)
+        {
+            _canvasManager.FadeInAll();
+        }
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -101,4 +122,8 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
             _canvasManager.FadeOutAll();
         }
     }
+
+    AbstractMenuScreen IModMenuCustomMenu.BuildCustomMenu() => Menu.GenerateMenu();
+
+    string IModMenuInterface.ModMenuName() => "BingoUI";
 }

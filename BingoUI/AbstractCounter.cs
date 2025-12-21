@@ -1,9 +1,11 @@
-﻿using Silksong.UnityHelper.Extensions;
+﻿using BepInEx.Configuration;
+using BingoUI.Data;
+using Silksong.UnityHelper.Extensions;
 using System;
 
 namespace BingoUI;
 
-public abstract partial class AbstractCounter(string spriteName)
+public abstract class AbstractCounter(string spriteName)
 {
     internal static event Action<string, ShowRule>? OnUpdateText;
 
@@ -46,5 +48,25 @@ public abstract partial class AbstractCounter(string spriteName)
     protected void UpdateTextNextFrame(ShowRule showRule = ShowRule.Default)
     {
         BingoUIPlugin.Instance.InvokeNextFrame(() => UpdateText(showRule));
+    }
+
+    /// <summary>
+    /// Whether or not this counter is allowed to be shown.
+    /// This is only checked when building the canvas.
+    /// </summary>
+    protected virtual bool CounterDisplayEnabled => true;
+
+    internal bool IsCounterDisplayEnabled
+    {
+        get
+        {
+            if (!CounterDisplayEnabled) return false;
+            if (ConfigSettings.CounterSettings?.TryGetValue(SpriteName, out ConfigEntry<bool> entry) ?? false)
+            {
+                return entry.Value;
+            }
+
+            return true;
+        }
     }
 }
