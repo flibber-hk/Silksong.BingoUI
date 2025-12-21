@@ -42,7 +42,7 @@ public class CounterManager
             "runeharp" => "Rune Harps",
             "weavereffigy" => "Weaver Effigies",
             
-            "rosaries" => "Rosaries",
+            "rosaries" => "Spent Rosaries",
 
 
             _ => spriteKey
@@ -67,6 +67,7 @@ public class CounterManager
             new QuestCounter("huntquest", "TYPE_HUNT_"),
             new QuestCounter("gatherquest", "TYPE_GATHER_"),
             new QuestCounter("wayfarerquest", "TYPE_WAYFARER_"),
+            // TODO - deliveries
 
             new PickedConsumableCounter("shardbundles", ["Shard Pouch"]),
             new PickedConsumableCounter("beastshards", ["Great Shard"]),
@@ -81,6 +82,12 @@ public class CounterManager
             new RelicCounter("runeharp", RelicTypes.RuneHarp, false),
             new RelicCounter("weavereffigy", RelicTypes.WeaverEffigy, false),
             new RelicCounter("psalmcylinder", RelicTypes.AnyCylinder, false),
+
+            // TODO - Craftmetal
+            // TODO - Silkeaters
+
+            // For people who want to show the rosary counter in the UI
+            new RosaryCounter("rosaries")
         ];
     }
 

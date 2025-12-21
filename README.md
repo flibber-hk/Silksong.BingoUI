@@ -16,5 +16,5 @@ from reusable sources such as rosary machines and shops, but includes from shiny
 ## Planned counters
 
 * Craftmetal
-* Relics
 * Silkeaters
+* Delivery quests
