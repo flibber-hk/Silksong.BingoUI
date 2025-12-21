@@ -33,5 +33,7 @@ public class SaveData
 
     public Dictionary<string, int> PickedShinies { get; set; } = [];
 
+    public Dictionary<string, int> ItemsEverObtained { get; set; } = [];
+
     public HashSet<string> ShakraScenes { get; set; } = [];
 }

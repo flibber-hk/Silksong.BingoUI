@@ -61,6 +61,7 @@ public class CounterManager
             new ToolTypeCounter("redtools", ToolFlags.Red),
             new ToolTypeCounter("yellowtools", ToolFlags.Yellow),
             new ToolTypeCounter("bluetools", ToolFlags.Blue),
+
             // Only count non-main quests
             new QuestCounter("allquest", "TYPE_"),
             new QuestCounter("donationquest", "TYPE_DONATE_"),
@@ -83,8 +84,8 @@ public class CounterManager
             new RelicCounter("weavereffigy", RelicTypes.WeaverEffigy, false),
             new RelicCounter("psalmcylinder", RelicTypes.AnyCylinder, false),
 
-            // TODO - Craftmetal
-            // TODO - Silkeaters
+            new TrackedItemCounter("craftmetal", "Tool Metal"),
+            new TrackedItemCounter("silkeater", "Silk Grub"),
 
             // For people who want to show the rosary counter in the UI
             new RosaryCounter("rosaries")
