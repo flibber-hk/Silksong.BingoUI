@@ -35,5 +35,5 @@ public class SaveData
 
     public HashSet<string> ShakraScenes { get; set; } = [];
 
-    public int TotalDeliveryQuestsCompleted { get; set; } = 0;
+    public Dictionary<string, int> DeliveryQuestsCompleted { get; set; } = [];
 }
