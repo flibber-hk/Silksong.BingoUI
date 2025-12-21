@@ -74,6 +74,13 @@ public class CounterManager
             new PickedConsumableCounter("necklaces", ["Rosary_Set_Huge_White", "Rosary_Set_Medium", "Rosary_Set_Large"]),
 
             new ShakraLocationsCounter("mapper"),
+
+            new RelicCounter("relics", RelicTypes.AnyRelic, true),
+            new RelicCounter("bonescroll", RelicTypes.BoneScroll, false),
+            new RelicCounter("choralcommandment", RelicTypes.ChoralCommandment, false),
+            new RelicCounter("runeharp", RelicTypes.RuneHarp, false),
+            new RelicCounter("weavereffigy", RelicTypes.WeaverEffigy, false),
+            new RelicCounter("psalmcylinder", RelicTypes.AnyCylinder, false),
         ];
     }
 

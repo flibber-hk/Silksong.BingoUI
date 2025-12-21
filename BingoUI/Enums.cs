@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace BingoUI;
 
@@ -27,4 +28,22 @@ public enum DisplayMode
 
     [Description("Never show counters")]
     NeverDisplay
+}
+
+[Flags]
+public enum RelicTypes
+{
+    Unknown = 0,
+
+    ArcaneEgg = 1,
+    BoneScroll = 2,
+    ChoralCommandment = 4,
+    RuneHarp = 8,
+    WeaverEffigy = 16,
+    PsalmCylinder = 32,
+    SacredCylinder = 64,
+
+    AnyRelic = ArcaneEgg | BoneScroll | ChoralCommandment | RuneHarp | WeaverEffigy,
+    AnyCylinder = PsalmCylinder | SacredCylinder,
+    Any = AnyRelic | AnyCylinder,
 }
