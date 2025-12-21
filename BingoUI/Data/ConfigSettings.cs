@@ -7,10 +7,11 @@ public static class ConfigSettings
     public static ConfigEntry<bool>? ShowSpentRosariesInHud;
     public static ConfigEntry<bool>? ShowSpentRosariesInInventory;
 
+    // TODO - should fix what happens if this setting changes
     public static ConfigEntry<DisplayMode>? CounterDisplayMode;
 
-    public static bool AlwaysDisplayCounters => CounterDisplayMode?.Value == DisplayMode.AlwaysDisplay;
-    public static bool NeverDisplayCounters => CounterDisplayMode?.Value == DisplayMode.NeverDisplay;
+    public static bool AlwaysDisplayCounters => false; // CounterDisplayMode?.Value == DisplayMode.AlwaysDisplay;
+    public static bool NeverDisplayCounters => true; // CounterDisplayMode?.Value == DisplayMode.NeverDisplay;
 
     public static void Setup(ConfigFile config)
     {
