@@ -3,20 +3,10 @@
 A Hollow Knight: Silksong mod to show counts of various in-game statistics
 on the screen. This is primarily intended as an tool for Bingo races.
 
-## Installation
+## Important note
 
-The latest version of the mod can be downloaded from the actions tab (requires
-a github account). You will also need dependencies downloaded from Thunderstore,
-the list of dependencies is available in this repo at thunderstore/thunderstore.toml
-(version numbers don't matter). For convenience, these can be downloaded by downloading
-the [dependency pack](https://thunderstore.io/c/hollow-knight-silksong/p/flibber/FlibberDependencyPack/)
-- this still ought to be done using a mod installer though.
-
-Make sure that the en.json file is placed in a languages dir next to the mod dll.
-
-When this mod is ready for release, I'll remove this section (with the expectation
-that people install it with a Thunderstore-aware mod installer that can automatically
-handle dependencies).
+Currently the counters have been disabled, and only the spent geo tracker is functional.
+The counters will be added as and when I get icons for them.
 
 ## Notes
 
