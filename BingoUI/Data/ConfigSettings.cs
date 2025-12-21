@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using Silksong.ModMenu.Plugin;
 using System.Collections.Generic;
 
 namespace BingoUI.Data;
@@ -20,7 +21,16 @@ public static class ConfigSettings
     {
         ShowSpentRosariesInHud = config.Bind("Currency", nameof(ShowSpentRosariesInHud), true, "Show spent rosaries in HUD");
         ShowSpentRosariesInInventory = config.Bind("Currency", nameof(ShowSpentRosariesInInventory), true, "Show spent rosaries in inventory");
-        CounterDisplayMode = config.Bind("Counters", nameof(CounterDisplayMode), DisplayMode.Default, "Counter display mode [currently forced hidden]");
+        CounterDisplayMode = config.Bind(
+            "Counters",
+            nameof(CounterDisplayMode),
+            DisplayMode.Default,
+            new ConfigDescription(
+                "When to display counters",
+                null,
+                MenuElementGenerators.CreateRightDescGenerator(true)
+                )
+            );
 
         CounterSettings = [];
         foreach (string spriteName in counterManager.Counters.Keys)
