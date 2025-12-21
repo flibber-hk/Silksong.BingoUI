@@ -34,4 +34,6 @@ public class SaveData
     public Dictionary<string, int> PickedShinies { get; set; } = [];
 
     public HashSet<string> ShakraScenes { get; set; } = [];
+
+    public int TotalDeliveryQuestsCompleted { get; set; } = 0;
 }
