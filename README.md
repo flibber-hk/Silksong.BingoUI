@@ -8,7 +8,9 @@ or by using [ModMenu](https://thunderstore.io/c/hollow-knight-silksong/p/silkson
 
 ## Spent rosary counter
 
-The spent rosary counter
+The spent rosary counter shows the number of spent rosaries. The counter in the HUD and the counter in
+the inventory (on the main inventory page) can be toggled separately.
+(There is a separate rosary display on the rosary cannon, which cannot be turned into a spent rosary counter.)
 
 
 ## Counters
