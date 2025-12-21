@@ -67,7 +67,7 @@ public class CounterManager
             new QuestCounter("huntquest", "TYPE_HUNT_"),
             new QuestCounter("gatherquest", "TYPE_GATHER_"),
             new QuestCounter("wayfarerquest", "TYPE_WAYFARER_"),
-            // TODO - deliveries
+            // TODO - Deliveries
 
             new PickedConsumableCounter("shardbundles", ["Shard Pouch"]),
             new PickedConsumableCounter("beastshards", ["Great Shard"]),

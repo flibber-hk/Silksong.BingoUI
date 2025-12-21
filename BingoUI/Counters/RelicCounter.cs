@@ -73,6 +73,6 @@ public class RelicCounter(string spriteName, RelicTypes relicTypes, bool showDis
 
         string distinct = DistinctRelicTypesCollected().ToString();
 
-        return $"{collected}({distinct})";
+        return $"{collected}{{{distinct}}}";
     }
 }
