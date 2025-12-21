@@ -1,4 +1,5 @@
-﻿using MonoDetour.HookGen;
+﻿using BingoUI.Data;
+using MonoDetour.HookGen;
 using System;
 
 namespace BingoUI.Counters;
@@ -8,7 +9,7 @@ public class ShakraLocationsCounter(string spriteName) : AbstractCounter(spriteN
 {
     public override string GetText()
     {
-        return SaveDataProxy.ShakraScenes.Count.ToString();
+        return SaveData.Instance.ShakraScenes.Count.ToString();
     }
 
     public override void SetupHooks()
@@ -31,7 +32,7 @@ public class ShakraLocationsCounter(string spriteName) : AbstractCounter(spriteN
         if (!CheckShakra(self)) return;
 
         string sceneName = GameManager.instance.sceneName;
-        if (SaveDataProxy.ShakraScenes.Add(sceneName))
+        if (SaveData.Instance.ShakraScenes.Add(sceneName))
         {
             UpdateTextNextFrame();
         }
