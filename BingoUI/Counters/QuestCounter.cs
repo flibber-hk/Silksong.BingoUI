@@ -38,6 +38,7 @@ public class QuestCounter(string spriteName, string questTypeKeyPrefix) : Abstra
         return QuestManager
             .GetAllFullQuests()
             .Where(this.Matches)
+            .Where(quest => quest.nextQuestStep == null)
             .Where(fq => fq.Completion.WasEverCompleted)
             .Select(fq => fq.DisplayName)
             .Distinct()
