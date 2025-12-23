@@ -96,7 +96,11 @@ internal class CanvasManager : IDisposable
 
     public void OnUpdateText(string key, ShowRule showRule)
     {
-        AbstractCounter counter = BingoUIPlugin.Instance.CounterManager.Counters[key];
+        if (!BingoUIPlugin.Instance.CounterManager.Counters.TryGetValue(key, out AbstractCounter counter))
+        {
+            return;
+        }
+
         CounterData data = _canvasPanels[counter.SpriteName];
 
         string newText = counter.GetText();
