@@ -98,10 +98,15 @@ internal class CanvasManager : IDisposable
     {
         if (!BingoUIPlugin.Instance.CounterManager.Counters.TryGetValue(key, out AbstractCounter counter))
         {
+            // This shouldn't happen
             return;
         }
 
-        CounterData data = _canvasPanels[counter.SpriteName];
+        if (!_canvasPanels.TryGetValue(counter.SpriteName, out CounterData data))
+        {
+            // If a counter is active but doesn't have a canvas panel, return silently
+            return; 
+        }
 
         string newText = counter.GetText();
 
