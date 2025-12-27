@@ -6,6 +6,8 @@ internal class MapCounter(string spriteName) : AbstractCounter(spriteName)
 {
     public override string GetText()
     {
+        // Make sure mapBoolList is assigned
+        var _ = PlayerData.instance.MapBools;
         return PlayerData.instance.MapCount.ToString();
     }
 
