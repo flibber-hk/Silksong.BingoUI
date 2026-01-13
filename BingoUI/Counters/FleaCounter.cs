@@ -39,6 +39,9 @@ public class FleaCounter(string spriteName) : AbstractCounter(spriteName)
         [nameof(PlayerData.SavedFlea_Under_21)] = MapZone.UNDERSTORE,
         [nameof(PlayerData.SavedFlea_Under_23)] = MapZone.UNDERSTORE,
 
+        [nameof(PlayerData.CaravanLechSaved)] = MapZone.GREYMOOR,
+        [nameof(PlayerData.tamedGiantFlea)] = MapZone.ARBORIUM,
+        [nameof(PlayerData.MetTroupeHunterWild)] = MapZone.AQUEDUCT,
     };
 
     public static MapZone GetSanitizedMapZone(MapZone? current = null)
@@ -79,7 +82,7 @@ public class FleaCounter(string spriteName) : AbstractCounter(spriteName)
         SceneManager.activeSceneChanged += OnSceneChange;
     }
 
-    private void OnSceneChange(UnityEngine.SceneManagement.Scene oldScene, UnityEngine.SceneManagement.Scene scene)
+    private void OnSceneChange(Scene oldScene, Scene scene)
     {
         UpdateText(showRule: ShowRule.DontShow);
     }

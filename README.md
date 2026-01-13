@@ -15,7 +15,7 @@ the inventory (on the main inventory page) can be toggled separately.
 
 ## Counters
 
-* The flea counter shows `current_fleas(fleas_in_current_area)`. Vog, Kratt and the large flea are **not** included.
+* The flea counter shows `current_fleas(fleas_in_current_area)`. Vog, Kratt and the large flea are included.
 * The maps counter shows total maps obtained.
 * The locket counter shows `current_lockets(total_obtained_lockets)`.
 * The tool counters (all, red, yellow, blue) show the number of tools obtained. Silk skills are not counted as tools for this purpose.
