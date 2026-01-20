@@ -46,7 +46,7 @@
     <PackageReference Include="Silksong.FsmUtil" Version="0.3.5" />
     <PackageReference Include="Silksong.UnityHelper" Version="1.1.1" />
     <PackageReference Include="Silksong.PrepatcherPlugin" Version="1.2.0" />
-    <PackageReference Include="MonoDetour.HookGen" Version="0.7.*" PrivateAssets="all" />
+    <PackageReference Include="MonoDetour.HookGen" Version="0.7.11" PrivateAssets="all" />
     <PackageReference Include="MonoDetour" Version="*" />
     <PackageReference Include="Silksong.DataManager" Version="1.1.0" />
     <PackageReference Include="Silksong.ModMenu" Version="0.2.0" />
