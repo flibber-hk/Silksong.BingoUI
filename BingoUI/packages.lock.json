@@ -52,8 +52,8 @@
       "MonoDetour.HookGen": {
         "type": "Direct",
         "requested": "[0.7.*, )",
-        "resolved": "0.7.11",
-        "contentHash": "qqxEiu34oCGprNFYFKLvCBXq4vCyS62uZ4mTyS0HcpYYHStoHXO8/dqECKp/VaJjLyPfcgk7qCtDlunL4nKELA==",
+        "resolved": "0.7.12",
+        "contentHash": "h9UhcqMDiXqlO5omQ8J3n17n/3vVT3IzxiL14HQ9QxYnGVX8kBiSkIV0mT+sZ2yccmgEu3daJwHQxUFphVrwpA==",
         "dependencies": {
           "MonoDetour": "0.5.0"
         }
@@ -105,9 +105,9 @@
       },
       "Silksong.ModMenu": {
         "type": "Direct",
-        "requested": "[0.2.0, )",
-        "resolved": "0.2.0",
-        "contentHash": "4DPSOVaF7mZoHPyfF+hqI0BCm+OAZJpj9566ZwE93YmUZADf/6OlmI1jGY3/mHkRFrshwUpVdhE8okPZ06hpUQ==",
+        "requested": "[0.4.1, )",
+        "resolved": "0.4.1",
+        "contentHash": "eN1/ow8EREYoP/IggMZ0GQCOX3hCxL9RHLmWLwhrDrFdP/tHRiW0RYROwZ3hp9NiSnrqYtcYv+UcMBoavUO3Ag==",
         "dependencies": {
           "BepInEx.Core": "5.4.21",
           "HarmonyX": "2.9.0",
