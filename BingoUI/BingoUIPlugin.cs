@@ -124,6 +124,4 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>, IM
     }
 
     AbstractMenuScreen IModMenuCustomMenu.BuildCustomMenu() => Menu.GenerateMenu();
-
-    string IModMenuInterface.ModMenuName() => "BingoUI";
 }
