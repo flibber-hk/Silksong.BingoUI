@@ -1,9 +1,7 @@
-﻿using MonoDetour.HookGen;
-using System;
+﻿using System;
 
 namespace BingoUI.Counters;
 
-[MonoDetourTargets(typeof(ToolItem))]
 internal class ToolTypeCounter(string spriteName, ToolItemManager.OwnToolsCheckFlags flags) : AbstractCounter(spriteName)
 {
     public override string GetText()

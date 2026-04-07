@@ -1,11 +1,7 @@
-﻿using MonoDetour.HookGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace BingoUI.Counters;
 
-[MonoDetourTargets(typeof(CollectableItemManager))]
 public class LocketCounter(string spriteName) : AbstractCounter(spriteName)
 {
     private const string ItemName = "Crest Socket Unlocker";

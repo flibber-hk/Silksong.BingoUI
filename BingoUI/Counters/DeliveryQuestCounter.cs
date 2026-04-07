@@ -1,13 +1,9 @@
 ﻿using BingoUI.Data;
-using MonoDetour.HookGen;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BingoUI.Counters;
 
-[MonoDetourTargets(typeof(FullQuestBase))]
 public class DeliveryQuestCounter(string spriteName) : AbstractCounter(spriteName)
 {
     public override void SetupHooks()

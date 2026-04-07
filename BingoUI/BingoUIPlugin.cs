@@ -1,8 +1,6 @@
 using BepInEx;
 using BingoUI.Data;
-using MonoDetour.HookGen;
 using Silksong.DataManager;
-using Silksong.ModMenu;
 using Silksong.ModMenu.Plugin;
 using Silksong.ModMenu.Screens;
 using System.Collections;
@@ -13,8 +11,6 @@ namespace BingoUI;
 // TODO - adjust the plugin guid as needed
 [BepInAutoPlugin(id: "io.github.flibber-hk.bingoui")]
 [BepInDependency("org.silksong-modding.datamanager")]
-[MonoDetourTargets(typeof(UIManager))]
-[MonoDetourTargets(typeof(HeroController))]
 public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>, IModMenuCustomMenu
 {
     public static BingoUIPlugin Instance { get; private set; }

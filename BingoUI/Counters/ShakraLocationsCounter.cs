@@ -1,10 +1,7 @@
 ﻿using BingoUI.Data;
-using MonoDetour.HookGen;
-using System;
 
 namespace BingoUI.Counters;
 
-[MonoDetourTargets(typeof(PlayMakerNPC))]
 public class ShakraLocationsCounter(string spriteName) : AbstractCounter(spriteName)
 {
     public override string GetText()

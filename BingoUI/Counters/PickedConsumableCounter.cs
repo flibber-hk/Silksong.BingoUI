@@ -1,6 +1,4 @@
 ﻿using BingoUI.Data;
-using MonoDetour.HookGen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,8 +10,6 @@ namespace BingoUI.Counters;
 /// 
 /// Shows X(Y), where X is #currently owned and Y is #ever picked up
 /// </summary>
-[MonoDetourTargets(typeof(CollectableItemManager))]
-[MonoDetourTargets(typeof(CollectableItemPickup))]
 internal class PickedConsumableCounter(string spriteName, HashSet<string> ItemNames) : AbstractCounter(spriteName)
 {
 

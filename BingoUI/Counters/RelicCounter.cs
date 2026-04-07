@@ -1,10 +1,8 @@
-﻿using MonoDetour.HookGen;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace BingoUI.Counters;
 
-[MonoDetourTargets(typeof(CollectableRelicManager))]
 public class RelicCounter(string spriteName, RelicTypes relicTypes, bool showDistinct) : AbstractCounter(spriteName)
 {
     public RelicTypes CountedRelicTypes { get; set; } = relicTypes;

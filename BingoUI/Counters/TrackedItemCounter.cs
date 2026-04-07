@@ -1,13 +1,10 @@
 ﻿using BingoUI.Data;
-using MonoDetour.HookGen;
-using System;
 
 namespace BingoUI.Counters;
 
 /// <summary>
 /// Counter that tracks the total number of an item and the number ever obtained.
 /// </summary>
-[MonoDetourTargets(typeof(CollectableItemManager))]
 internal class TrackedItemCounter(string spriteName, string itemName) : AbstractCounter(spriteName)
 {
     public string ItemName { get; set; } = itemName;
