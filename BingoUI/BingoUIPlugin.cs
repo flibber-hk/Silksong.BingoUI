@@ -11,7 +11,7 @@ namespace BingoUI;
 // TODO - adjust the plugin guid as needed
 [BepInAutoPlugin(id: "io.github.flibber-hk.bingoui")]
 [BepInDependency("org.silksong-modding.datamanager")]
-public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>, IModMenuCustomMenu
+public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
 {
     public static BingoUIPlugin Instance { get; private set; }
     SaveData? ISaveDataMod<SaveData>.SaveData
@@ -118,6 +118,4 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>, IM
             _canvasManager.FadeOutAll();
         }
     }
-
-    AbstractMenuScreen IModMenuCustomMenu.BuildCustomMenu() => Menu.GenerateMenu();
 }

@@ -36,7 +36,11 @@ public static class ConfigSettings
         foreach (string spriteName in counterManager.Counters.Keys)
         {
             string counterDisplayName = CounterManager.GetDisplayName(spriteName);
-            CounterSettings[spriteName] = config.Bind("Counters.Individual", counterDisplayName, spriteName != "rosaries", $"Show counter: {counterDisplayName}");
+            CounterSettings[spriteName] = config.Bind(
+                "Counters.Individual",
+                counterDisplayName,
+                spriteName != "rosaries",
+                new ConfigDescription($"Show counter: {counterDisplayName}", null, new ConfigEntrySubgroup("Counter Toggles")));
         }
     }
 }
