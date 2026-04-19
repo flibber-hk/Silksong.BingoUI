@@ -1,8 +1,11 @@
 using BepInEx;
 using BingoUI.Data;
+using MonoDetour.Reflection.Unspeakable;
 using Silksong.DataManager;
 using Silksong.ModMenu.Plugin;
 using Silksong.ModMenu.Screens;
+using Silksong.UnityHelper.Extensions;
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -36,11 +39,38 @@ public partial class BingoUIPlugin : BaseUnityPlugin, ISaveDataMod<SaveData>
         Md.UIManager.GoToPauseMenu.Postfix(AfterPause);
         Md.UIManager.UIClosePauseMenu.Postfix(AfterUnpause);
         Md.UIManager.ReturnToMainMenu.Postfix(TakedownCanvas);
+        Md.UIManager.ShowMenu.PostfixMoveNext(HideCountersInModMenu);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         Config.SettingChanged += OnConfigSettingChanged;
 
         Logger.LogInfo($"Plugin {Name} ({Id}) has loaded!");
+    }
+
+    private void HideCountersInModMenu(SpeakableEnumerator<object, UIManager> self, ref bool continueEnumeration)
+    {
+        // When the ShowMenu coroutine has finished, check if the new menu screen is modded and 
+        if (continueEnumeration) return;
+
+        if (ConfigSettings.HideInModMenu?.Value == false)
+        {
+            return;
+        }
+
+        // Wait to fade out because the history is changed only after the coroutine is finished
+        this.InvokeAfterFrames(() =>
+        {
+            if (MenuScreenNavigation.CurrentModMenuScreen == null)
+            {
+                // Not a mod menu
+                return;
+            }
+
+            if (_canvasManager != null)
+            {
+                _canvasManager.FadeOutAll();
+            }
+        }, 2);
     }
 
     private void OnConfigSettingChanged(object sender, BepInEx.Configuration.SettingChangedEventArgs e)

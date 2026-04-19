@@ -9,8 +9,10 @@ public static class ConfigSettings
     public static ConfigEntry<bool>? ShowSpentRosariesInHud;
     public static ConfigEntry<bool>? ShowSpentRosariesInInventory;
 
-    // TODO - should fix what happens if this setting changes
+    // TODO - should fix what happens when this setting changes
     public static ConfigEntry<DisplayMode>? CounterDisplayMode;
+
+    public static ConfigEntry<bool>? HideInModMenu;
 
     public static Dictionary<string, ConfigEntry<bool>>? CounterSettings;
 
@@ -21,6 +23,7 @@ public static class ConfigSettings
     {
         ShowSpentRosariesInHud = config.Bind("Currency", nameof(ShowSpentRosariesInHud), true, "Show spent rosaries in HUD");
         ShowSpentRosariesInInventory = config.Bind("Currency", nameof(ShowSpentRosariesInInventory), true, "Show spent rosaries in inventory");
+        HideInModMenu = config.Bind("Counters", nameof(HideInModMenu), true, "Hide counters while in a mod menu");
         CounterDisplayMode = config.Bind(
             "Counters",
             nameof(CounterDisplayMode),
